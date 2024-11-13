@@ -1,16 +1,26 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
 import SearchView from './views/SearchView';
 import ResultView from './views/ResultView';
 
 function App() {
+  const [location, setLocation] = useState(null);
+
+  const handleLocationSearch = (lat, lon) => {
+    setLocation({ lat, lon });
+  };
+
+  const handleReset = () => {
+    setLocation(null);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<SearchView />} />
-        <Route path="/results" element={<ResultView />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      {!location ? (
+        <SearchView onSearch={handleLocationSearch} />
+      ) : (
+        <ResultView lat={location.lat} lon={location.lon} onReset={handleReset} />
+      )}
+    </div>
   );
 }
 
