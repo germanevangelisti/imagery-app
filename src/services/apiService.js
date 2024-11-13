@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const IMAGERY_API_BASE_URL = process.env.REACT_APP_IMAGERY_API_URL || 'http://localhost:4000';
+const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+const SENTINEL_API_KEY = process.env.REACT_APP_SENTINEL_API_KEY
 const OSM_API_URL = 'https://nominatim.openstreetmap.org/search';
-const instanceId = 'd6c75d03-2892-4b90-896d-64e4e520f3b0'
 
 // Función para buscar una ubicación en OpenStreetMap
 export const searchLocation = async (query) => {
@@ -72,29 +73,7 @@ export const getFutureOpportunities = async (lat, lon) => {
     }
 };
 
-// export const getSentinelHubUrl = (lat, lon, zoom) => {
-//     const instanceId = "8a49f50f-fc97-4ac1-8356-36c64bd4fecd"; // Tu Instance ID de Sentinel Hub
-
-//     // Asegúrate de que lat y lon son números
-//     lat = parseFloat(lat);
-//     lon = parseFloat(lon);
-
-//     // Usa paréntesis para cada cálculo y aplica toFixed después
-//     const minLon = (lon - 0.01).toFixed(6);
-//     const minLat = (lat - 0.01).toFixed(6);
-//     const maxLon = (lon + 0.01).toFixed(6);
-//     const maxLat = (lat + 0.01).toFixed(6);
-
-//     // Concatenación correcta con comas entre valores
-//     const BBOX = `${minLon},${minLat},${maxLon},${maxLat}`;
-
-//     console.log("BBOX:", BBOX); // Verifica el formato de BBOX
-
-//     return `https://services.sentinel-hub.com/ogc/wms/${instanceId}?SERVICE=WMS&REQUEST=GetMap&LAYERS=S2_L1C&MAXCC=20&WIDTH=512&HEIGHT=512&BBOX=${BBOX}&FORMAT=image/jpeg&CRS=EPSG:4326&TIME=2023-01-01/2023-12-31&TRANSPARENT=FALSE`;
-// };
-
 export const getSentinelHubUrl = (lat, lon, zoom = 13) => {
-    const instanceId = "d6c75d03-2892-4b90-896d-64e4e520f3b0";
     const layerName = "1_TRUE_COLOR";
     const maxCloudCoverage = 20;
     const width = 512;
@@ -104,18 +83,15 @@ export const getSentinelHubUrl = (lat, lon, zoom = 13) => {
     lat = parseFloat(lat);
     lon = parseFloat(lon);
 
-    // Calcula el BBOX expandiendo una pequeña área alrededor de la coordenada
     const minLon = (lon - 0.01).toFixed(6);
     const minLat = (lat - 0.01).toFixed(6);
     const maxLon = (lon + 0.01).toFixed(6);
     const maxLat = (lat + 0.01).toFixed(6);
     const BBOX = `${minLon},${minLat},${maxLon},${maxLat}`;
 
-    // Construye la URL
-    return `https://services.sentinel-hub.com/ogc/wms/${instanceId}?SERVICE=WMS&REQUEST=GetMap&LAYERS=${layerName}&MAXCC=${maxCloudCoverage}&WIDTH=${width}&HEIGHT=${height}&BBOX=${BBOX}&FORMAT=image/jpeg&CRS=EPSG:4326&TIME=${timeRange}&STYLES=default`;
+    return `https://services.sentinel-hub.com/ogc/wms/${SENTINEL_API_KEY}?SERVICE=WMS&REQUEST=GetMap&LAYERS=${layerName}&MAXCC=${maxCloudCoverage}&WIDTH=${width}&HEIGHT=${height}&BBOX=${BBOX}&FORMAT=image/jpeg&CRS=EPSG:4326&TIME=${timeRange}&STYLES=default`;
 };
 
 export const getGoogleMapsStaticUrl = (lat, lon, zoom = 15) => {
-    const apiKey = "AIzaSyBGAre6OmBpBX1VD3gZ8vkjA56Cch8jxP0";
-    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=${zoom}&size=600x400&maptype=satellite&key=${apiKey}`;
+    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=${zoom}&size=600x400&maptype=satellite&key=${GOOGLE_MAPS_API_KEY}`;
 };
