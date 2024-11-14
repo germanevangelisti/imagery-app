@@ -27,7 +27,7 @@ This project consists of a React frontend and a FastAPI backend for retrieving a
 
 #### Backend (FastAPI)
 
-1. Navigate to the `@api` directory.
+1. Navigate to the `api` directory.
 2. Create a virtual environment and activate it:
    ```bash
    python -m venv venv
@@ -58,9 +58,9 @@ This project consists of a React frontend and a FastAPI backend for retrieving a
 #### Docker Setup
 
 1. Ensure Docker is installed and running.
-2. Use the provided `Dockerfile` in the `@api` directory to build the backend image:
+2. Use the provided `Dockerfile` in the `api` directory to build the backend image:
    ```bash
-   docker build -t imagery-backend ./@api
+   docker build -t imagery-backend ./api
    ```
 3. Use the provided `Dockerfile` in the root directory to build the frontend image:
    ```bash
