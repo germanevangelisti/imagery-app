@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Imagery Data Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project consists of a React frontend and a FastAPI backend for retrieving and displaying imagery data related to geographic locations.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+### Prerequisites
 
-### `npm start`
+- [Node.js](https://nodejs.org/) and npm (for the React frontend)
+- [Python 3.9](https://www.python.org/downloads/) (for the FastAPI backend)
+- [Docker](https://www.docker.com/) (optional, for containerized setup)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Setting Up and Running the Application Locally
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Frontend (React)
 
-### `npm test`
+1. Navigate to the root directory of the React application.
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Backend (FastAPI)
 
-### `npm run build`
+1. Navigate to the `@api` directory.
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+3. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the FastAPI server:
+   ```bash
+   uvicorn main:app --reload --port 4000
+   ```
+5. The API will be available at [http://localhost:4000](http://localhost:4000).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Application Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Frontend**: A React application bootstrapped with Create React App.
+- **Backend**: A FastAPI application that provides endpoints for searching and retrieving imagery data.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Dependencies
 
-### `npm run eject`
+- **Frontend**: Managed via `package.json` using npm.
+- **Backend**: Managed via `requirements.txt` using pip.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Building and Deploying the Project
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Docker Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Ensure Docker is installed and running.
+2. Use the provided `Dockerfile` in the `@api` directory to build the backend image:
+   ```bash
+   docker build -t imagery-backend ./@api
+   ```
+3. Use the provided `Dockerfile` in the root directory to build the frontend image:
+   ```bash
+   docker build -t imagery-frontend .
+   ```
+4. Use `docker-compose` to orchestrate both services:
+   ```bash
+   docker-compose up --build
+   ```
+5. The frontend will be available at [http://localhost:3000](http://localhost:3000) and the backend at [http://localhost:4000](http://localhost:4000).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Learn More
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [FastAPI documentation](https://fastapi.tiangolo.com/)
