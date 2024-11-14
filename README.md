@@ -45,6 +45,18 @@ This project consists of a React frontend and a FastAPI backend for retrieving a
    ```
 5. The API will be available at [http://localhost:4000](http://localhost:4000).
 
+### Running Frontend Tests
+
+To ensure the frontend is working correctly, you can run the tests using the following command:
+
+1. Navigate to the root directory of the React application.
+2. Run the tests:
+   ```bash
+   npm test
+   ```
+
+This will execute the test suite and provide feedback on the test results. Make sure to write and maintain tests to cover your application's functionality.
+
 ### Environment Variables
 
 To run the application, you may need to set up some environment variables. These should be stored in a `.env` file in the root of your project. Here is an example of what your `.env` file might look like:
