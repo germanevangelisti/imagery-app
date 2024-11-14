@@ -43,6 +43,16 @@ This project consists of a React frontend and a FastAPI backend for retrieving a
    ```
 5. The API will be available at [http://localhost:4000](http://localhost:4000).
 
+### Environment Variables
+
+To run the application, you may need to set up some environment variables. These should be stored in a `.env` file in the root of your project. Here is an example of what your `.env` file might look like:
+
+```
+REACT_APP_API_URL=http://localhost:4000
+REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+REACT_APP_SENTINEL_API_KEY=YOUR_SENTINEL_API_KEY
+```
+
 ### Application Structure
 
 - **Frontend**: A React application bootstrapped with Create React App.
