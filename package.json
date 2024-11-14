@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --testPathPattern=__tests__",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,5 +38,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "transform": {
+        "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+        "\\.(css|less)$": "identity-obj-proxy",
+        "^axios$": "axios/dist/node/axios.cjs"
+    },
+    "transformIgnorePatterns": [
+        "/node_modules/(?!axios)"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "babel-jest": "^29.7.0"
   }
 }
