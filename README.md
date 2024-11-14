@@ -2,6 +2,8 @@
 
 This project consists of a React frontend and a FastAPI backend for retrieving and displaying imagery data related to geographic locations.
 
+![app view](demo.png)
+
 ## Getting Started
 
 ### Prerequisites
