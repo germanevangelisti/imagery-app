@@ -5,7 +5,6 @@ const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 const SENTINEL_API_KEY = process.env.REACT_APP_SENTINEL_API_KEY
 const OSM_API_URL = 'https://nominatim.openstreetmap.org/search';
 
-// Función para buscar una ubicación en OpenStreetMap
 export const searchLocation = async (query) => {
     if (!query.trim()) {
         throw new Error("You must enter a location.");
@@ -31,7 +30,6 @@ export const searchLocation = async (query) => {
     }
 };
 
-// Función para buscar capturas en una ubicación
 export const searchCaptures = async (lat, lon) => {
     try {
         const response = await axios.get(`${IMAGERY_API_BASE_URL}/search`, {
@@ -47,7 +45,7 @@ export const searchCaptures = async (lat, lon) => {
     }
 };
 
-// Función para obtener las capturas recientes
+// Not used right now
 export const getRecentCaptures = async (lat, lon) => {
     try {
         const response = await axios.get(`${IMAGERY_API_BASE_URL}/archive`, {
@@ -60,7 +58,6 @@ export const getRecentCaptures = async (lat, lon) => {
     }
 };
 
-// Función para obtener oportunidades futuras de captura
 export const getFutureOpportunities = async (lat, lon) => {
     try {
         const response = await axios.get(`${IMAGERY_API_BASE_URL}/opportunities`, {

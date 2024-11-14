@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import LocationSearchBar from '../components/LocationSearchBar';
+import { searchLocation } from '../services/apiService';
 
 function SearchView({ onSearch }) {
     const [query, setQuery] = useState('');
+    const [error, setError] = useState('');
 
     const handleSearch = async () => {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`);
-        const data = await response.json();
-        if (data.length > 0) {
-            const { lat, lon } = data[0];
+        setError('');
+        try {
+            const { lat, lon } = await searchLocation(query);
             onSearch(parseFloat(lat), parseFloat(lon));
-        } else {
-            alert('Location not found');
+        } catch (err) {
+            setError(err.message || 'An error occurred while searching');
         }
     };
 
@@ -19,6 +20,7 @@ function SearchView({ onSearch }) {
         <div>
             <h2>Search for a Location</h2>
             <LocationSearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 }

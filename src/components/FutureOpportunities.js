@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-import './FutureOpportunities.css'; // Import the CSS file
+import { getFutureOpportunities } from '../services/apiService';
+import './FutureOpportunities.css';
 
 function FutureOpportunities({ lat, lon, onOpportunitiesFetched }) {
     const [opportunities, setOpportunities] = useState([]);
@@ -9,9 +8,9 @@ function FutureOpportunities({ lat, lon, onOpportunitiesFetched }) {
     useEffect(() => {
         const fetchOpportunities = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/opportunities?lat=${lat}&lon=${lon}`);
-                setOpportunities(response.data);
-                onOpportunitiesFetched(response.data.map(op => op.estimatedCaptureDate));
+                const data = await getFutureOpportunities(lat, lon);
+                setOpportunities(data);
+                onOpportunitiesFetched(data.map(op => op.estimatedCaptureDate));
             } catch (error) {
                 console.error("Error fetching future opportunities:", error);
             }
