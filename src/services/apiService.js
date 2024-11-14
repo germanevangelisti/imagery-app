@@ -71,24 +71,47 @@ export const getFutureOpportunities = async (lat, lon) => {
 };
 
 export const getSentinelHubUrl = (lat, lon, zoom = 13) => {
-    const layerName = "1_TRUE_COLOR";
-    const maxCloudCoverage = 20;
-    const width = 512;
-    const height = 512;
-    const timeRange = "2020-01-01/2023-12-31";
+    const params = {
+        SERVICE: "WMS",
+        REQUEST: "GetMap",
+        LAYERS: "1_TRUE_COLOR",
+        MAXCC: 20,
+        WIDTH: 512,
+        HEIGHT: 512,
+        FORMAT: "image/jpeg",
+        CRS: "EPSG:4326",
+        TIME: "2020-01-01/2023-12-31",
+        STYLES: "default",
+    };
 
-    lat = parseFloat(lat);
-    lon = parseFloat(lon);
+    const bbox = calculateBoundingBox(lat, lon, 0.01);
 
-    const minLon = (lon - 0.01).toFixed(6);
-    const minLat = (lat - 0.01).toFixed(6);
-    const maxLon = (lon + 0.01).toFixed(6);
-    const maxLat = (lat + 0.01).toFixed(6);
-    const BBOX = `${minLon},${minLat},${maxLon},${maxLat}`;
+    const queryString = new URLSearchParams({
+        ...params,
+        BBOX: bbox,
+    }).toString();
 
-    return `https://services.sentinel-hub.com/ogc/wms/${SENTINEL_API_KEY}?SERVICE=WMS&REQUEST=GetMap&LAYERS=${layerName}&MAXCC=${maxCloudCoverage}&WIDTH=${width}&HEIGHT=${height}&BBOX=${BBOX}&FORMAT=image/jpeg&CRS=EPSG:4326&TIME=${timeRange}&STYLES=default`;
+    return `https://services.sentinel-hub.com/ogc/wms/${SENTINEL_API_KEY}?${queryString}`;
+};
+
+const calculateBoundingBox = (lat, lon, offset) => {
+    const minLon = (lon - offset).toFixed(6);
+    const minLat = (lat - offset).toFixed(6);
+    const maxLon = (lon + offset).toFixed(6);
+    const maxLat = (lat + offset).toFixed(6);
+    return `${minLon},${minLat},${maxLon},${maxLat}`;
 };
 
 export const getGoogleMapsStaticUrl = (lat, lon, zoom = 15) => {
-    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=${zoom}&size=600x400&maptype=satellite&key=${GOOGLE_MAPS_API_KEY}`;
+    const params = {
+        center: `${lat},${lon}`,
+        zoom: zoom,
+        size: "600x400",
+        maptype: "satellite",
+        key: GOOGLE_MAPS_API_KEY,
+    };
+
+    const queryString = new URLSearchParams(params).toString();
+
+    return `https://maps.googleapis.com/maps/api/staticmap?${queryString}`;
 };
