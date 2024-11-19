@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFutureOpportunities } from '../services/apiService';
 import './FutureOpportunities.css';
 
-function FutureOpportunities({ lat, lon, onOpportunitiesFetched }) {
+function FutureOpportunities({ lat, lon }) {
     const [opportunities, setOpportunities] = useState([]);
 
     useEffect(() => {
@@ -10,14 +10,13 @@ function FutureOpportunities({ lat, lon, onOpportunitiesFetched }) {
             try {
                 const data = await getFutureOpportunities(lat, lon);
                 setOpportunities(data);
-                onOpportunitiesFetched(data.map(op => op.estimatedCaptureDate));
             } catch (error) {
                 console.error("Error fetching future opportunities:", error);
             }
         };
 
         fetchOpportunities();
-    }, [lat, lon, onOpportunitiesFetched]);
+    }, [lat, lon]);
 
     return (
         <div>

@@ -8,7 +8,6 @@ import { searchCaptures } from '../services/apiService';
 function ResultView({ lat, lon, onReset }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [imageData, setImageData] = useState(null);
-    const [futureDates, setFutureDates] = useState([]);
     const [pastDates, setPastDates] = useState([]);
 
     useEffect(() => {
@@ -47,7 +46,7 @@ function ResultView({ lat, lon, onReset }) {
                 onDateChange={handleDateChange}
                 dates={pastDates.map(capture => capture.captureDate)}
             />
-            <FutureOpportunities lat={lat} lon={lon} onOpportunitiesFetched={setFutureDates} />
+            <FutureOpportunities lat={lat} lon={lon} />
             <button onClick={onReset} className="button" >New Search</button>
         </div>
     );
