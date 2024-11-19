@@ -3,7 +3,7 @@ import './ImageryTimeline.css';
 
 function ImageryTimeline({ dates, onDateChange }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    console.log(dates);
+
     const handleSliderChange = (e) => {
         const index = parseInt(e.target.value, 10);
         setSelectedIndex(index);

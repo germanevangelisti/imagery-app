@@ -34,7 +34,7 @@ class Capture(BaseModel):
     location: dict
     captureDate: datetime
     resolution: str
-
+    metadata: str
 
 class Opportunity(BaseModel):
     opportunityId: str
@@ -50,6 +50,7 @@ async def search(lat: float, lon: float):
             "location": {"lat": lat, "lon": lon},
             "captureDate": datetime.now() - timedelta(days=i * 30),
             "resolution": random.choice(["10m", "20m", "30m"]),
+            "metadata": "Here information about the capture"
         }
         for i in range(1, 6)
     ]
